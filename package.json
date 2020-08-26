@@ -1,0 +1,23 @@
+{
+  "name": "boommessage",
+  "version": "1.0.0",
+  "description": "js-practice-boom_message",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yangjinhwa/boomMessage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yangjinhwa/boomMessage/issues"
+  },
+  "homepage": "https://github.com/yangjinhwa/boomMessage#readme",
+  "dependencies": {
+    "parcel": "^1.12.4"
+  }
+}
