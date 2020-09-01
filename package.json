@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/yangjinhwa/boomMessage/issues"
   },
-  "homepage": "https://github.com/yangjinhwa/boomMessage#readme",
+  "homepage": "https://github.com/yangjinhwa/boomMessage#",
   "dependencies": {
     "parcel": "^1.12.4"
   }
