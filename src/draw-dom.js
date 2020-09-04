@@ -1,67 +1,50 @@
-import {data, removeList} from './index.js';
+import {byId, ids} from "./data";
 
 const boomListUl = window.document.getElementById('boomList');
-let descData;
 
-
-
-
-const createMsg = (val, key) => {
-  let innerText = `
-  <p>${val.msg} : <span class="boomTime">${val.boomTime}</span> index : ${key} createdID: ${val.createdId}</p>
-    <select name=\"\" id=\"\" >
-        <option value=\"3\">3</option>
-         <option value=\"5\">5</option>
-         <option value=\"2\">2배</option>
-          <option value=\"3\">3배</option>
+const createOptions = () => {
+  let innerNode = `
+        <select name=\"\" class=\"increaseSelect\">
+          <option value=\"3\">3</option>
+          <option value=\"5\">5</option>
+          <option value=\"2times\">2배</option>
+          <option value=\"3times\">3배</option>
         </select>
-        <button>시간 추가</button>
-        <select name=\"\" id=\"\">
+        <button class=\"increaseTimeBtn\">시간 추가</button>
+        <select name=\"\" class=\"decreaseSelect\">
           <option value=\"3\">-3</option>
           <option value=\"5\">-5</option>
         </select>
-        <button>시간 감소</button>
-        <button onclick="removeList(this)">삭제</button>
+        <button class=\"decreaseTimeBtn\">시간 감소</button>
+        <button class=\"removeBtn\">삭제</button>
       `;
-  return innerText
+  return innerNode
 };
 
-let buttonID = 0;
+export const drawLists = (descIds) => {
+  // 뷰 초기화
+  descIds.forEach((id) => {
 
-const drawLists = (data) => {
-  data.forEach((val, key) => {
-    const innerMsg = createMsg(val, key);
     const boomListLi = document.createElement("li");
-    boomListLi.id = val.createdId;
-    boomListLi.innerHTML = innerMsg;
+    boomListLi.setAttribute('id', id);
 
-    // let createRemoveBtn = document.createElement('button').setAttribute('id',`removeBtn + ${buttonID++}`);
-    // console.log(createRemoveBtn);
+    // 메시지 뷰
+    const p = document.createElement('p');
+    p.innerHTML = `메시지 : ${byId[id].message} , 남은시간 : `;
+
+    // 타이머 뷰
+    const span = document.createElement('span');
+    span.id = `boomTime-${id}`;
+    span.innerHTML = `${byId[id].time}`;
+    p.appendChild(span);
+    boomListLi.appendChild(p);
+
+    // 옵션셀릭트 뷰
+    const optionsSelectNode = createOptions();
+    const div = document.createElement('div');
+    div.innerHTML = optionsSelectNode;
+    boomListLi.appendChild(div);
+
     boomListUl.appendChild(boomListLi);
   });
-};
-
-
-const sortDescList = () => {
-  descData = data.sort((a, b) => {
-    if (a.boomTime > b.boomTime) {
-      return -1;
-    }
-    if (a.boomTime < b.boomTime) {
-      return 1;
-    }
-    return 0;
-  });
-
-  return descData
-};
-
-
-export const loadLists = () => {
-  // 뷰 초기화
-  boomListUl.innerHTML = '';
-  // 내림차순 정렬
-  const descData = sortDescList();
-  // li 요소 추가
-  drawLists(descData);
 };
