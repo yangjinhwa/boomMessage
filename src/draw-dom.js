@@ -1,6 +1,5 @@
 import {byId, ids} from "./data";
 
-const boomListUl = window.document.getElementById('boomList');
 
 const createOptions = () => {
   let innerNode = `
@@ -44,7 +43,6 @@ export const drawLists = (descIds) => {
     const div = document.createElement('div');
     div.innerHTML = optionsSelectNode;
     boomListLi.appendChild(div);
-
     boomListUl.appendChild(boomListLi);
   });
 };
