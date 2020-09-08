@@ -52,7 +52,7 @@ export const handleRemoveList = (elementId) => {
 };
 
 // 내림차순 정렬
-const sortDescList = () => {
+export const sortDescList = () => {
   const descIds = ids.sort((a, b) => {
     return byId[a].time - byId[b].time
   });

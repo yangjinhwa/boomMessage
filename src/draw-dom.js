@@ -1,4 +1,4 @@
-import {byId, ids} from "./data";
+import {byId, ids, sortDescList} from "./data";
 
 
 const createOptions = () => {
@@ -69,4 +69,50 @@ export const createBoomMessageEl = (id, message, time) => {
   boomListLi.appendChild(div);
 
   return boomListLi
+}
+
+export const drawDiffList = () => {
+  // data에서 순서대로 뒤져서 id가 없으면 추가하고, id가 있으면 time을 업데이트한다.
+  // data(5)에서 없어진 경우 DOM(6)에서 찾을거야.
+  // data: 업데이트 되야하는 정보. <- data.js
+  // DOM: 현재 그려진 리스트 정보. <- getElementById
+  const sortedIds = sortDescList();
+  const list = sortedIds.map((id) => byId[id]);
+
+  const boomListEl = document.getElementById('boomList');
+  const drawnListEls = boomListEl.getElementsByTagName('li');
+
+  const drawnDate = [...drawnListEls].reduce((acc, current, index) => {
+    const id = current.id;
+    const time = Number(current.getElementsByTagName('span')[0].innerHTML);
+    const nextResult = { ...acc };
+
+    nextResult[id] = {
+      index,
+      id,
+      time,
+      element: current,
+    }
+
+    return nextResult;
+  }, {});
+
+  list.forEach((item, index) => {
+    const { id, message, time } = item;
+
+    const element = document.getElementById(id);
+
+    if (!element) { // 추가
+      const newElement = createBoomMessageEl(id, message, time);
+      const boomListEl = document.getElementById('boomList');
+      const drawnList = boomListEl.childNodes
+      const drawnListNumber = drawnList.length;
+
+      if (index === drawnListNumber) {
+        boomListEl.appendChild(newElement);
+      } else {
+        boomListEl.insertBefore(newElement, drawnList[index + 1]);
+      }
+    }
+  })
 }
