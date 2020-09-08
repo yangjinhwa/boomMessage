@@ -1,9 +1,10 @@
 import {drawLists} from "./draw-dom";
 // import {boomListUl} from "./main";
+import { mockData } from './mock';
 
-export const byId = {};
-export const ids = [];
-let createdIdNum = 0;
+export const byId = mockData;
+export const ids = Object.keys(mockData);
+let createdIdNum = ids.length;
 
 // 추가하기
 export function addList(message, time) {
