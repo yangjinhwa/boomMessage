@@ -46,3 +46,27 @@ export const drawLists = (descIds, boomListUl) => {
     boomListUl.appendChild(boomListLi);
   });
 };
+
+export const createBoomMessageEl = (id, message, time) => {
+  const boomListLi = document.createElement("li");
+  boomListLi.setAttribute('id', id);
+
+  // 메시지 뷰
+  const p = document.createElement('p');
+  p.innerHTML = `메시지 : ${message} , 남은시간 : `;
+
+  // 타이머 뷰
+  const span = document.createElement('span');
+  span.id = `boomTime-${id}`;
+  span.innerHTML = `${time}`;
+  p.appendChild(span);
+  boomListLi.appendChild(p);
+
+  // 옵션셀릭트 뷰
+  const optionsSelectNode = createOptions();
+  const div = document.createElement('div');
+  div.innerHTML = optionsSelectNode;
+  boomListLi.appendChild(div);
+
+  return boomListLi
+}
