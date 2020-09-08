@@ -2,11 +2,11 @@ import {
   addList,
   byId,
   ids,
-  loadLists,
   handleRemoveList,
   getSelectElementId,
   getQuerySelector, increaseTime, decreaseTime
 } from "./data";
+import { drawDiffList } from './draw-dom';
 
 export const addBtn = window.document.getElementById('addBtn');
 export const msgInput = window.document.getElementById('msgInput');
@@ -16,7 +16,7 @@ addBtn.addEventListener("click", () => {
   const timeSelect = document.getElementById("boomLimitTime").value;
   addList(msgInput.value, timeSelect);
   msgInput.value = '';
-  loadLists(boomListUl);
+  drawDiffList();
 });
 
 boomListUl.addEventListener('click', (e) => {
@@ -42,22 +42,21 @@ boomListUl.addEventListener('click', (e) => {
   if (target.className === 'decreaseTimeBtn') {
     decreaseTime(decreaseElement.value, targetElementId);
   }
-  loadLists(boomListUl);
+  drawDiffList();
 });
 
 const timer = () => {
   setInterval(() => {
     ids.forEach((id, i) => {
       byId[id].time -= 1;
-      const boomListId = window.document.querySelector(`#boomTime-${id}`);
-      boomListId.innerHTML = byId[id].time;
+      drawDiffList();
 
       if (byId[id].time === 0) {
         handleRemoveList(id);
-        loadLists(boomListUl);
       }
     });
   }, 1000);
 };
 
 timer();
+drawDiffList();

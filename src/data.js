@@ -1,5 +1,3 @@
-import {drawLists} from "./draw-dom";
-// import {boomListUl} from "./main";
 import { mockData } from './mock';
 
 export const byId = mockData;
@@ -57,13 +55,4 @@ export const sortDescList = () => {
     return byId[a].time - byId[b].time
   });
   return descIds
-};
-
-export const loadLists = (boomListUl) => {
-  // 뷰 초기화
-  boomListUl.innerHTML = '';
-  // 내림차순 정렬
-  const descIds = sortDescList();
-  // li 요소 추가
-  drawLists(descIds, boomListUl);
 };
