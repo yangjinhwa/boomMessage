@@ -61,7 +61,6 @@ export const drawDiffList = () => {
     const nextResult = { ...acc };
 
     nextResult[id] = {
-      index,
       id,
       time,
       element: current,
@@ -92,6 +91,24 @@ export const drawDiffList = () => {
 
       if (nextTime !== currentTime) {
         element.querySelector('span').innerHTML = nextTime;
+      }
+
+      const drawnList = [...boomListEl.childNodes].map(el => el.id)
+      const drawnIndex = drawnList.indexOf(id);
+
+      if (drawnIndex !== index) {
+        element.remove();
+
+        const newElement = createBoomMessageEl(id, message, time);
+        const boomListEl = document.getElementById('boomList');
+        const drawnList = boomListEl.childNodes
+        const drawnListNumber = drawnList.length;
+
+        if (index === drawnListNumber) {
+          boomListEl.appendChild(newElement);
+        } else {
+          boomListEl.insertBefore(newElement, drawnList[index + 1]);
+        }
       }
     }
 
