@@ -1,4 +1,5 @@
 import {drawLists} from "./draw-dom";
+// import {boomListUl} from "./main";
 
 export const byId = {};
 export const ids = [];
@@ -15,7 +16,7 @@ export function addList(message, time) {
   ids.push(listId);
 }
 
-// 타이머 추가/감소/삭제
+// 타이머 추가/감소/삭제 > 네이밍 다시 하기
 export const getSelectElementId = (target) => {
   const liElement = target.closest("li");
   const elementId = liElement.id;
@@ -28,7 +29,7 @@ export const getQuerySelector = (target, className) => {
   return element
 };
 
-export const increaseTime = (increaseValue,targetElementId) => {
+export const increaseTime = (increaseValue, targetElementId) => {
   if (increaseValue === '3' || increaseValue === '5') {
     byId[targetElementId].time += parseInt(increaseValue);
   } else if (increaseValue === '2times') {
@@ -38,7 +39,7 @@ export const increaseTime = (increaseValue,targetElementId) => {
   }
 };
 
-export const decreaseTime = (decreaseValue,targetElementId) => {
+export const decreaseTime = (decreaseValue, targetElementId) => {
   byId[targetElementId].time -= parseInt(decreaseValue);
 };
 
@@ -57,11 +58,11 @@ const sortDescList = () => {
   return descIds
 };
 
-export const loadLists = () => {
+export const loadLists = (boomListUl) => {
   // 뷰 초기화
   boomListUl.innerHTML = '';
   // 내림차순 정렬
   const descIds = sortDescList();
   // li 요소 추가
-  drawLists(descIds);
+  drawLists(descIds, boomListUl);
 };

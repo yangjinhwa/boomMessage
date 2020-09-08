@@ -20,7 +20,7 @@ const createOptions = () => {
   return innerNode
 };
 
-export const drawLists = (descIds) => {
+export const drawLists = (descIds, boomListUl) => {
   // 뷰 초기화
   descIds.forEach((id) => {
 

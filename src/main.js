@@ -12,40 +12,37 @@ export const addBtn = window.document.getElementById('addBtn');
 export const msgInput = window.document.getElementById('msgInput');
 export const boomListUl = window.document.getElementById('boomList');
 
-addBtn.addEventListener("click", ()=> {
+addBtn.addEventListener("click", () => {
   const timeSelect = document.getElementById("boomLimitTime").value;
   addList(msgInput.value, timeSelect);
   msgInput.value = '';
-  loadLists();
+  loadLists(boomListUl);
 });
 
 boomListUl.addEventListener('click', (e) => {
   const target = e.target;
   const targetElementId = getSelectElementId(target);
   const clickedElementType = target.nodeName;
-  const increaseElement = getQuerySelector(target,`increaseSelect`);
-  const decreaseElement = getQuerySelector(target,`decreaseSelect`);
+  const increaseElement = getQuerySelector(target, `increaseSelect`);
+  const decreaseElement = getQuerySelector(target, `decreaseSelect`);
 
   if (clickedElementType === 'SELECT') {
     e.stopPropagation();
-  //  버블링이 안막힘...구현실패...
+    return
   }
 
   if (target.className === 'removeBtn') {
-    e.preventDefault();
     handleRemoveList(targetElementId);
   }
 
   if (target.className === 'increaseTimeBtn') {
-    e.preventDefault();
-    increaseTime(increaseElement.value,targetElementId);
+    increaseTime(increaseElement.value, targetElementId);
   }
 
   if (target.className === 'decreaseTimeBtn') {
-    e.preventDefault();
-    decreaseTime(decreaseElement.value,targetElementId);
+    decreaseTime(decreaseElement.value, targetElementId);
   }
-  loadLists();
+  loadLists(boomListUl);
 });
 
 const timer = () => {
@@ -57,7 +54,7 @@ const timer = () => {
 
       if (byId[id].time === 0) {
         handleRemoveList(id);
-        loadLists();
+        loadLists(boomListUl);
       }
     });
   }, 1000);
