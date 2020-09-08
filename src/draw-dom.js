@@ -113,6 +113,21 @@ export const drawDiffList = () => {
       } else {
         boomListEl.insertBefore(newElement, drawnList[index + 1]);
       }
+    } else {
+      const nextTime = time;
+      const currentTime = drawnDate[id].time;
+
+      if (nextTime !== currentTime) {
+        element.querySelector('span').innerHTML = nextTime;
+      }
     }
+
+    delete drawnDate[id];
+  })
+
+  Object.keys(drawnDate).forEach((id) => {
+    const element = document.getElementById(id);
+
+    element.remove();
   })
 }
